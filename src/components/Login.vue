@@ -4,6 +4,7 @@
     <input type="text" name="email" placeholder="Correo Electronico" v-model="email"><br><br>
     <input type="password" name="password" placeholder="Password" v-model="password"><br><br>
     <button type="button" name="btnIngresar" @click="Ingresar">Ingresar</button><br><br>
+    <small> <router-link to="/signup">Registrarse</router-link></small>
     <div class="">
       <h1>{{ error }}</h1>
       <h1 v-for="msj in json">{{ msj }}</h1>
@@ -30,7 +31,7 @@ export default {
       console.log(self.email)
       console.log(self.password)
       if (this.validarCampos(self.email, self.password)) {
-        if (this.validarEmail(self.email)) {
+        if (this.validarEmail()) {
             self.error = ""
             api.getDataSesion(self.email, self.password)
             .then(function(dataJson) {
@@ -47,12 +48,12 @@ export default {
         self.json = []
       }
     },
-    validarEmail: function(email) {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      return re.test(email)
+    validarCampos: function() {
+      return (this.email != "" && this.password != "") ? true : false
     },
-    validarCampos: function(email, password) {
-      return (email != "" && password != "") ? true : false
+    validarEmail: function() {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      return re.test(this.email)
     }
   }
 

@@ -1,15 +1,17 @@
 <template>
   <div>
     <h1>{{titulo}}</h1>
-    <input type="text" name="username" placeholder="Nombre de Usuario" v-model="username"><br><br>
-    <input type="text" name="email" placeholder="Correo Electronico" v-model="email"><br><br>
-    <input type="password" name="password" placeholder="Password" v-model="password"><br><br>
-    <input type="password" name="password_confirmation" placeholder="Confirmar Password" v-model="password_confirmation"><br><br>
-    <button type="button" @click="Registrarse">Registrarse</button><br><br>
-    <div class="">
-      <h1>{{ error }}</h1>
-      <h1 v-for="msj in json">{{ msj }}</h1>
-    </div>
+    <form id="app" @submit="Registrarse" method="post">
+    <input type="text" name="username" placeholder="Nombre de Usuario" v-model.text="username"><br><br>
+    <input type="email" name="email" placeholder="Correo Electronico" v-model.email="email"><br><br>
+    <input type="password" name="password" placeholder="Password" v-model.password="password" maxlength="32"><br><br>
+    <input type="password" name="password_confirmation" placeholder="Confirmar Password" v-model.password="password_confirmation" maxlength="32"><br><br>
+    <input type="submit" value="Registrarse">
+    <!-- <button type="button" @click="Registrarse">Registrarse</button><br><br> -->
+  </form><br>
+    <small><router-link to="/">Login</router-link></small>
+    <h1>{{ error }}</h1>
+    <h1 v-for="data in json">{{ data }}</h1>
   </div>
 </template>
 
@@ -21,7 +23,7 @@ export default {
   name: "Signup",
   data () {
     return {
-      titulo: 'Registro de Sesión',
+      titulo: 'Registro de Usuario',
       username: "",
       email: "",
       password: "",
@@ -31,18 +33,62 @@ export default {
     }
   },
   methods: {
-    Registrarse: function (){
+    Registrarse: function(e){
       // LOGICA PARA REGISTRAR UN USUARIO
-    },
-    validarEmail: function(email) {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      return re.test(email)
-    },
-    validarCampos: function(username, email, password, password_confirmation) {
-      return (username != "" && email != "" && password != "" && password_confirmation != "") ? true : false
-    }
-  }
+      e.preventDefault();
+      const self = this
 
+      if (this.validarCampos()) {
+        if (this.validarEmail()) {
+          self.error = ""
+          if (this.validateMinLength()) {
+            self.error = ""
+            if (this.validateConfirmationPassword()) {
+              self.error = ""
+              api.setDataUser(self.username, self.email, self.password)
+              .then(function(data) {
+                self.json = data
+                this.$router.push('/')
+              }).catch(e =>{
+                console.log(e)
+              })
+            }else{
+              console.log("El password no coincide")
+              self.error = "El password no coincide"
+              self.json = []
+            }
+          }else{
+            console.log("El password debe tener min 8 characteres")
+            self.error = "El password debe tener min 8 characteres"
+            self.json = []
+          }
+        }else{
+          console.log("Email invalido")
+          self.error = "Email invalido"
+          self.json = []
+        }
+
+      }else{
+          console.log("Campos vacios")
+          self.error = "Campos vacios"
+          self.json = []
+      }
+    },
+    validarCampos: function() {
+      return (this.username != "" && this.email != "" && this.password != "" && this.password_confirmation != "") ? true : false
+    },
+    validarEmail: function() {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      return re.test(this.email)
+    },
+    validateMinLength(){
+      return this.password.trim().length > 7 ? true : false
+    },
+    validateConfirmationPassword(){
+      return (this.password == this.password_confirmation) ? true : false
+    }
+
+  }
 }
 </script>
 
