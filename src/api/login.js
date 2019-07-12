@@ -11,7 +11,7 @@ export default {
 
   // API PARA INICIAR SESION
   getDataSesion(email, password){
-    const url = PROTOCOLO+URL+"/api/users/:email/:password"
+    const url = PROTOCOLO+URL+"/api/login/:email/:password"
 
     const remplazoEmail =  url.replace(':email', email)
     const ruta = remplazoEmail.replace(':password', password)
@@ -22,20 +22,14 @@ export default {
   },
   // API PARA REGISTRO DE USUARIO
   setDataUser(username, email, password){
-    const userParams = {username: username, email: email, password: password}
-    const url = PROTOCOLO+URL+"/api/signup/"
+    // const userParams = {username: username, email: email, password: password}
+    const userParams = username+"/"+email+"/"+password
+    const url = PROTOCOLO+URL+"/api/signup/:userParams"
+    const ruta = url.replace(':userParams', userParams)
 
-    return fetch(url,  {
-      method: 'post', // or 'PUT'
-      body: JSON.stringify(userParams), // data can be `string` or {object}!
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    })
+    return fetch(ruta)
     .then(res => res.json())
-    .catch(e =>{
-      console.log(e)
-    })
+    .catch(e => e )
     .then(json => json)
   }
 }

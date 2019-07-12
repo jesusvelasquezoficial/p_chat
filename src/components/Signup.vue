@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>{{titulo}}</h1>
-    <form id="app" @submit="Registrarse" method="post">
+    <form id="app" @submit="Registrarse" method="get">
     <input type="text" name="username" placeholder="Nombre de Usuario" v-model.text="username"><br><br>
     <input type="email" name="email" placeholder="Correo Electronico" v-model.email="email"><br><br>
     <input type="password" name="password" placeholder="Password" v-model.password="password" maxlength="32"><br><br>
@@ -11,7 +11,7 @@
   </form><br>
     <small><router-link to="/">Login</router-link></small>
     <h1>{{ error }}</h1>
-    <h1 v-for="data in json">{{ data }}</h1>
+    <!-- <h1 v-for="data in json">{{ data }}</h1> -->
   </div>
 </template>
 
@@ -39,6 +39,7 @@ export default {
       const self = this
 
       if (this.validarCampos()) {
+        self.error = ""
         if (this.validarEmail()) {
           self.error = ""
           if (this.validateMinLength()) {
@@ -47,10 +48,17 @@ export default {
               self.error = ""
               api.setDataUser(self.username, self.email, self.password)
               .then(function(data) {
-                self.json = data
-                this.$router.push('/')
-              }).catch(e =>{
-                console.log(e)
+                // console.log(data)
+                // console.log(Object.keys(data))
+                if(Object.keys(data) != "errors"){
+                  self.json = data
+                  self.$router.push('/registroExitoso')
+                }else{
+                  self.error = "El email esta en uso, prueba con otro email"
+                }
+                // this.$router.push('/')
+              }).catch(e => {
+                console.log(e);
               })
             }else{
               console.log("El password no coincide")

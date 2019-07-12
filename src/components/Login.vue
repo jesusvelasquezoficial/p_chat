@@ -30,13 +30,20 @@ export default {
       const self = this
       console.log(self.email)
       console.log(self.password)
-      if (this.validarCampos(self.email, self.password)) {
+      if (this.validarCampos()) {
+        self.error = ""
         if (this.validarEmail()) {
             self.error = ""
             api.getDataSesion(self.email, self.password)
-            .then(function(dataJson) {
-              self.json = dataJson
+            .then(function(data) {
+              if(Object.keys(data) != "errors"){
+                self.json = data
+                self.$router.push('/paginaPrincipal')
+              }else{
+                self.error = "Usted no esta registrador por favor registrese"
+              }
             }).catch(e => {
+              self.error = "Usted no esta registrador"
               console.log(e);
             })
         }else{
