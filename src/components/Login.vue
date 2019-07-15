@@ -36,6 +36,8 @@ export default {
             self.error = ""
             api.getDataSesion(self.email, self.password)
             .then(function(data) {
+              console.log(data);
+              console.log(Object.keys(data))
               if(Object.keys(data) != "errors"){
                 self.json = data
                 self.$router.push('/paginaPrincipal')
