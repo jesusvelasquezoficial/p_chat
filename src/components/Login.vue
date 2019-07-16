@@ -39,14 +39,19 @@ export default {
               console.log(data);
               console.log(Object.keys(data))
               if(Object.keys(data) != "errors"){
-                self.json = data
+                // Devolvemos los datos OJO
+                self.json = data.data
                 self.$router.push('/paginaPrincipal')
               }else{
-                self.error = "Usted no esta registrador por favor registrese"
+                self.error = data.errors
+                // self.error = "Usted no esta registrador por favor registrese"
               }
-            }).catch(e => {
+            }).catch(errors => {
               self.error = "Usted no esta registrador"
-              console.log(e);
+              self.error = errors
+
+              console.log(errors)
+              console.log(Object.keys(errors))
             })
         }else{
           self.error = "Email invalido"
