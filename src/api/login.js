@@ -1,7 +1,7 @@
 // PROTOCOLO
-const PROTOCOLO = 'http://'
+const PROTOCOLO = 'https://'
 // PUERTO
-const PORT = ":4000"
+const PORT = ":4001"
 // Arquimedes IP
 const URL = '10.0.1.9'+PORT
 // HUAWEI-B310 IP
@@ -14,12 +14,12 @@ export default {
     const sessionParams = email+'/'+password
     const url = PROTOCOLO+URL+"/api/login/:sessionParams"
     const ruta =  url.replace(':sessionParams', sessionParams)
-
+    // console.log(ruta)
     // ESPERAMOS UNA RESPUESTAS JSON
     return fetch(ruta)
       .then(res => res.json())
-      .catch(e => e )
       .then(json => json)
+      .catch(e => e )
   },
   // API PARA REGISTRO DE USUARIO
   setDataUser(username, email, password){
@@ -27,10 +27,9 @@ export default {
     const userParams = username+'/'+email+'/'+password
     const url = PROTOCOLO+URL+"/api/signup/:userParams"
     const ruta = url.replace(':userParams', userParams)
-
     return fetch(ruta)
     .then(res => res.json())
-    .catch(e => e )
     .then(json => json)
+    .catch(e => e )
   }
 }
