@@ -1,5 +1,6 @@
 <template>
   <div>
+    <img src="../assets/logo.png" width="130px">
     <h1>{{bienvenida}}</h1>
     <br>
     <small>
@@ -12,7 +13,7 @@
 
 <script>
 // OJO CON ESTO, DEBERIAS CAMBIAR EL NOMBRE
-// import api from '../api/login'
+// import api from '../api'
 
 export default {
   name: "registroExitoso",

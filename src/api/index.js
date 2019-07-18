@@ -31,5 +31,13 @@ export default {
     .then(res => res.json())
     .then(json => json)
     .catch(e => e )
+  },
+  //API PARA BUSCAR CONTACTOS
+  getContacto(nombre){
+    const url = PROTOCOLO+URL+"/api/buscarContacto/"+nombre
+    return fetch(url)
+    .then(res => res.json())
+    .then(json => json)
+    .catch(e => e)
   }
 }

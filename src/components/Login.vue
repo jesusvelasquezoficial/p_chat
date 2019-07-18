@@ -1,5 +1,6 @@
 <template>
   <div>
+    <img src="../assets/logo.png" width="130px">
     <h1>{{titulo}}</h1>
     <input type="text" name="email" placeholder="Correo Electronico" v-model="email"><br><br>
     <input type="password" name="password" placeholder="Password" v-model="password"><br><br>
@@ -13,7 +14,7 @@
 </template>
 
 <script>
-import api from '../api/login'
+import api from '../api'
 export default {
   name: "Login",
   data () {

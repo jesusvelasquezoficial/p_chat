@@ -1,14 +1,15 @@
 <template>
   <div>
+    <img src="../assets/logo.png" width="130px">
     <h1>{{titulo}}</h1>
     <form id="app" @submit="Registrarse" method="get">
-    <input type="text" name="username" placeholder="Nombre de Usuario" v-model.text="username"><br><br>
-    <input type="email" name="email" placeholder="Correo Electronico" v-model.email="email"><br><br>
-    <input type="password" name="password" placeholder="Password" v-model.password="password" maxlength="32"><br><br>
-    <input type="password" name="password_confirmation" placeholder="Confirmar Password" v-model.password="password_confirmation" maxlength="32"><br><br>
-    <input type="submit" value="Registrarse">
-    <!-- <button type="button" @click="Registrarse">Registrarse</button><br><br> -->
-  </form><br>
+      <input type="text" name="username" placeholder="Nombre de Usuario" v-model.text="username"><br><br>
+      <input type="email" name="email" placeholder="Correo Electronico" v-model.email="email"><br><br>
+      <input type="password" name="password" placeholder="Password" v-model.password="password" maxlength="32"><br><br>
+      <input type="password" name="password_confirmation" placeholder="Confirmar Password" v-model.password="password_confirmation" maxlength="32"><br><br>
+      <input type="submit" value="Registrarse">
+      <!-- <button type="button" @click="Registrarse">Registrarse</button><br><br> -->
+    </form><br>
     <small><router-link to="/">Login</router-link></small>
     <h1>{{ error }}</h1>
     <!-- <h1 v-for="data in json">{{ data }}</h1> -->
@@ -17,7 +18,7 @@
 
 <script>
 // OJO CON ESTO, DEBERIAS CAMBIAR EL NOMBRE
-import api from '../api/login'
+import api from '../api'
 
 export default {
   name: "Signup",
