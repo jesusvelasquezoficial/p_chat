@@ -18,17 +18,17 @@
     <!-- <h1>{{titulo}}</h1><br> -->
     <div class="conversacion">
       <table style="width:100%;text-align:left;">
-        <tr style="margin:20px">
+        <tr style="margin:20px" v-show="contacto.mostrar">
           <td>
             <img src="../assets/profiles/avatar-1.jpg" width="50px" class="img">
           </td>
           <a href="#" class="btnConversacion">
           <td>
-            <i><b>Pepe Perez</b></i> <br>
-            <small> Estado del Usuario </small>
+            <i><b>{{contacto.nombre}}</b></i> <br>
+            <small>{{contacto.email}}</small>
           </td>
           <td style="vertical-align:middle; margin-top:5px;float:right;">
-            <a @click="" style="border: solid 1px black;text-decoration:none;padding:7px;color:black;">Agregar</a>
+            <router-link to="/chat" style="border: solid 1px black;text-decoration:none;padding:7px;color:black;">Chatear</router-link>
           </td>
         </a>
         <hr>
@@ -88,6 +88,12 @@ export default {
       titulo: 'Bienvenido su ingreso fue realizado con EXITO',
       username: "Nombre Apellido",
       nombreContato: '',
+      contacto: {
+          id: '',
+          email: '',
+          nombre: '',
+          mostrar: false
+      },
       json: [],
       error: ""
     }
@@ -97,9 +103,21 @@ export default {
       const self = this
       api.getContacto(self.nombreContato)
       .then(function(data) {
-        console.log(data);
+        if(Object.keys(data) != "errors"){
+          console.log(data)
+          self.contacto.id = data.data.id
+          self.contacto.email = data.data.email
+          self.contacto.nombre = data.data.username
+          self.contacto.mostrar = true
+        }else{
+          self.contacto.mostrar = false
+          // self.error = data.errors
+          self.error = "Usuario no encontrado"
+        }
       }).catch(errors => {
-        self.error = "El contacto no existe"
+        self.contacto.mostrar = false
+        console.log(errors)
+        self.error = "Usuario no encontrado"
         // self.error = errors
 
       })
