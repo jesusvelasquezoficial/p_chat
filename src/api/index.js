@@ -3,7 +3,8 @@ const PROTOCOLO = 'https://'
 // PUERTO
 const PORT = ":4001"
 // Arquimedes IP
-const URL = '10.0.1.9'+PORT
+const URL = '192.168.1.9'+PORT
+// const URL = '10.0.1.9'+PORT
 // HUAWEI-B310 IP
 // const URL = '192.168.8.107'+PORT
 
