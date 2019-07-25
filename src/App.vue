@@ -7,7 +7,6 @@
       <!-- Main Framework7 App component where we pass Framework7 params -->
         <f7-app :params="f7params">
           <f7-statusbar></f7-statusbar>
-          
           <!-- initial page is specified in routes.js -->
           <f7-view main url="/"></f7-view>
         </f7-app>

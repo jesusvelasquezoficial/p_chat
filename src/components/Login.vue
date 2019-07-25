@@ -1,102 +1,137 @@
 <template>
-  <!-- <div>
-    <img src="../assets/logo.png" width="130px">
-    <h1>{{titulo}}</h1>
-    <input type="text" name="email" placeholder="Correo Electronico" v-model="email"><br><br>
-    <input type="password" name="password" placeholder="Password" v-model="password"><br><br>
-    <button type="button" name="btnIngresar" @click="Ingresar">Ingresar</button><br><br>
-    <small> <router-link to="/signup">Registrarse</router-link></small>
-    <div class="">
-      <h1>{{ error }}</h1>
-      <h1 v-for="msj in json">{{ msj }}</h1>
-    </div>
-  </div> -->
-  <f7-page name="Login" no-toolbar no-navbar no-swipeback login-screen>
+  <f7-page no-toolbar no-navbar no-swipeback login-screen>
+    <!-- IMAGEN PHOENIX -->
     <f7-block>
       <img src="../assets/logo.png" width="130px">
     </f7-block>
-    <f7-login-screen-title>Inicio de Sesión</f7-login-screen-title>
+    <!-- TITULO LOGIN -->
+    <f7-login-screen-title>{{ titulo }}</f7-login-screen-title>
+    <!-- FORMULARIO -->
     <f7-list form>
+      <!-- INPUT EMAIL -->
       <f7-list-input
         label="Correo Electronico"
-        type="text"
+        type="email"
         placeholder="Correo Electronico"
-        :value="email"
-        @input="email = $event.target.value"
+        :value="formLogin.email"
+        @input="formLogin.email = $event.target.value"
+        outline
+        floating-label
+        info=""
+        required
+        validate
+        error-message="Debe ingresar un correo electronico"
+        autocomplete="new-user"
+        clear-button
       ></f7-list-input>
+      <!-- INPUT PASSWORD -->
       <f7-list-input
         label="Contraseña"
         type="password"
         placeholder="Contraseña"
-        :value="password"
-        @input="password = $event.target.value"
+        :value="formLogin.password"
+        @input="formLogin.password = $event.target.value"
+        outline
+        floating-label
+        info=""
+        required
+        validate
+        clear-button
       ></f7-list-input>
     </f7-list>
+    <!-- BTN INGRESAR -->
     <f7-block>
       <f7-button @click="Ingresar" color="deeporange" raised fill round>Ingresar</f7-button>
     </f7-block>
+    <!-- MSJ ERRORES -->
+    <f7-block-title>{{ error }}</f7-block-title>
+    <!-- LINK REGISTRARSE -->
     <f7-list>
-      <f7-block-footer>¿Aun no tienes cuenta?<br> <f7-link href="/signup/">¡Registrarte!</f7-link>.</f7-block-footer>
+      <f7-block-footer>¿Aun no tienes cuenta?<br> <f7-link href="/signup/">¡Registrate!</f7-link>.</f7-block-footer>
     </f7-list>
   </f7-page>
 </template>
 
 <script>
-import api from '../api'
+// AUTENTICACION
+import auth from '../auth'
+
 export default {
-  name: "Login",
   data () {
+    name: "Login"
     return {
       titulo: 'Inicio de Sesión',
-      email: "",
-      password: "",
-      json: [],
+      formLogin: {
+        email: "",
+        password: ""
+      },
       error: ""
     }
   },
   methods: {
     Ingresar: function (){
       const self = this
-      console.log(self.email)
-      console.log(self.password)
+      const app = self.$f7
+      const router = self.$f7router
+      console.log(self.formLogin.email)
+      console.log(self.formLogin.password)
       if (this.validarCampos()) {
+        console.log(this.validarCampos());
         self.error = ""
         if (this.validarEmail()) {
+            console.log(this.validarEmail());
             self.error = ""
-            api.getDataSesion(self.email, self.password)
-            .then(function(data) {
-              console.log(data);
-              console.log(Object.keys(data))
-              if(Object.keys(data) != "errors"){
-                // Devolvemos los datos OJO
-                self.json = data.data
-                self.$router.push('/paginaPrincipal')
-              }else{
-                self.error = data.errors
-                // self.error = "Usted no esta registrador por favor registrese"
-              }
-            }).catch(errors => {
-              self.error = "Usted no esta registrador"
-              self.error = errors
+            auth.login(this, self.formLogin).then((resp) =>{
+              console.log(resp.status)
+              console.log(resp.data)
+              console.log(Object.keys(resp))
 
-              console.log(errors)
-              console.log(Object.keys(errors))
+              window.localStorage.setItem('id_token', resp.data.user.id);
+              window.localStorage.setItem('v_username', resp.data.user.username);
+              window.localStorage.setItem('v_email', resp.data.user.email);
+              window.userToken = resp.data.user.token
+              localStorage.setItem('token',resp.data.user.token)
+              location.reload();
+
+            }).catch((error) => {
+              // app.dialog.alert(err);
+              app.dialog.alert("Usted no esta registrador");
+              self.error = "Usted no esta registrador"
+              console.log(Object.keys(error))
+              console.log(error)
             })
+            // api.getDataSesion(self.formLogin.email, self.formLogin.password)
+            // .then(function(data) {
+            //   console.log(data);
+            //   console.log(Object.keys(data))
+            //   if(Object.keys(data) != "errors"){
+            //     // Devolvemos los datos OJO
+            //     // self.json = data.data
+            //     router.navigate('/paginaPrincipal/')
+            //   }else{
+            //     self.error = data.errors
+            //     // self.error = "Usted no esta registrador por favor registrese"
+            //   }
+            // }).catch(errors => {
+            //   self.error = "Usted no esta registrador"
+            //   self.error = errors
+            //   console.log("Usted no esta registrador");
+            //   console.log(errors)
+            //   console.log(Object.keys(errors))
+            // })
         }else{
           self.error = "Email invalido"
-          self.json = []
         }
       }else{
         self.error = "Campos vacios"
-        self.json = []
       }
     },
     validarCampos: function() {
-      return (this.email != "" && this.password != "") ? true : false
+      return (this.formLogin.email != "" && this.formLogin.password != "") ? true : false
     },
     validarEmail: function() {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      return re.test(this.email)
+      return re.test(this.formLogin.email)
     }
   }
 

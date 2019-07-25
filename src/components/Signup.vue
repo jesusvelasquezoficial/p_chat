@@ -18,7 +18,7 @@
     <f7-block>
       <img src="../assets/logo.png" width="130px">
     </f7-block>
-    <f7-login-screen-title>Registro de Usuario</f7-login-screen-title>
+    <f7-login-screen-title>{{ titulo }}</f7-login-screen-title>
     <f7-list form>
       <f7-list-input
         label="Nombre de Usuario"
@@ -26,6 +26,12 @@
         placeholder="Nombre de Usuario"
         :value="username"
         @input="username = $event.target.value"
+        outline
+        floating-label
+        info=""
+        required
+        validate
+        clear-button
       ></f7-list-input>
       <f7-list-input
         label="Correo Electronico"
@@ -33,6 +39,12 @@
         placeholder="Correo Electronico"
         :value="email"
         @input="email = $event.target.value"
+        outline
+        floating-label
+        info=""
+        required
+        validate
+        clear-button
       ></f7-list-input>
       <f7-list-input
         label="Contraseña"
@@ -40,6 +52,12 @@
         placeholder="Contraseña"
         :value="password"
         @input="password = $event.target.value"
+        outline
+        floating-label
+        info=""
+        required
+        validate
+        clear-button
       ></f7-list-input>
       <f7-list-input
         label="Confirmar Contraseña"
@@ -47,11 +65,18 @@
         placeholder="Confirmar Contraseña"
         :value="password_confirmation"
         @input="password_confirmation = $event.target.value"
+        outline
+        floating-label
+        info=""
+        required
+        validate
+        clear-button
       ></f7-list-input>
     </f7-list>
     <f7-block>
       <f7-button @click="Registrarse" color="deeporange" raised fill round>Registrarse</f7-button>
     </f7-block>
+    <f7-block-title>{{ error }}</f7-block-title>
     <f7-list>
       <f7-block-footer>¿Ya tienes una cuenta?<br> <f7-link href="/">¡Ingresa!</f7-link>.</f7-block-footer>
     </f7-list>

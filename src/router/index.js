@@ -9,7 +9,31 @@ import Signup from '@/components/Signup'
 import registroExitoso from '@/components/registroExitoso'
 import chat from '@/components/chat'
 
-// Vue.use(Router)
+import auth from '../auth'
+
+// GUARDIANES AUTHENTICATION
+const requireAuth = (to, _from, next) => {
+  console.log(auth.user.authenticated);
+  if (!auth.user.authenticated) {
+    next({
+    path: '/Login/',
+    url: 'Login',
+    alias: '/Login/',
+      // query: { redirect: to.fullPath }
+    })
+  } else {
+    next()
+  }
+}
+
+const afterAuth = (_to, from, next) => {
+  if (auth.user.authenticated) {
+    next(from.path)
+  } else {
+    next()
+  }
+}
+
 // Array routes
 export default [
     {
@@ -18,9 +42,10 @@ export default [
       component: HelloWorld
     },
     {
-      path: '/',
+      path: '/Login',
       name: 'Login',
-      component: Login
+      component: Login,
+      beforeEnter:afterAuth
     },
     {
       path: '/signup',
@@ -33,9 +58,10 @@ export default [
       component: registroExitoso
     },
     {
-      path: '/paginaPrincipal',
+      path: '/',
       name: 'paginaPrincipal',
-      component: paginaPrincipal
+      component: paginaPrincipal,
+      beforeEnter: requireAuth
     },
     {
       path: '/chat',

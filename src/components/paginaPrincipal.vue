@@ -28,7 +28,7 @@
             <small>{{contacto.email}}</small>
           </td>
           <td style="vertical-align:middle; margin-top:5px;float:right;">
-            <router-link to="/chat" style="border: solid 1px black;text-decoration:none;padding:7px;color:black;">Chatear</router-link>
+            <!-- <router-link to="/chat" style="border: solid 1px black;text-decoration:none;padding:7px;color:black;">Chatear</router-link> -->
           </td>
         </a>
         <hr>
@@ -71,7 +71,7 @@
         </tr>
       </table>
     </div>
-    <small> <router-link to="/">Cerrar Session</router-link></small>
+    <!-- <small> <router-link to="/">Cerrar Session</router-link></small> -->
     <div class="">
       <h1>{{ error }}</h1>
       <h1 v-for="msj in json">{{ msj }}</h1>
