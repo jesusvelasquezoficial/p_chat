@@ -11,31 +11,34 @@
       <h1 v-for="msj in json">{{ msj }}</h1>
     </div>
   </div> -->
-  <f7-login-screen class="demo-login-screen"  @loginscreen:closed="loginScreenOpened = false">
-      <f7-page login-screen>
-        <f7-login-screen-title>Framework7</f7-login-screen-title>
-        <f7-list form>
-          <f7-list-input
-            label="Username"
-            type="text"
-            placeholder="Your username"
-            :value="username"
-            @input="username = $event.target.value"
-          ></f7-list-input>
-          <f7-list-input
-            label="Password"
-            type="password"
-            placeholder="Your password"
-            :value="password"
-            @input="password = $event.target.value"
-          ></f7-list-input>
-        </f7-list>
-        <f7-list>
-          <f7-list-button @click="signIn">Sign In</f7-list-button>
-          <f7-block-footer>Some text about login information.<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</f7-block-footer>
-        </f7-list>
-      </f7-page>
-    </f7-login-screen>
+  <f7-page name="Login" no-toolbar no-navbar no-swipeback login-screen>
+    <f7-block>
+      <img src="../assets/logo.png" width="130px">
+    </f7-block>
+    <f7-login-screen-title>Inicio de Sesión</f7-login-screen-title>
+    <f7-list form>
+      <f7-list-input
+        label="Correo Electronico"
+        type="text"
+        placeholder="Correo Electronico"
+        :value="email"
+        @input="email = $event.target.value"
+      ></f7-list-input>
+      <f7-list-input
+        label="Contraseña"
+        type="password"
+        placeholder="Contraseña"
+        :value="password"
+        @input="password = $event.target.value"
+      ></f7-list-input>
+    </f7-list>
+    <f7-block>
+      <f7-button @click="Ingresar" color="deeporange" raised fill round>Ingresar</f7-button>
+    </f7-block>
+    <f7-list>
+      <f7-block-footer>¿Aun no tienes cuenta?<br> <f7-link href="/signup/">¡Registrarte!</f7-link>.</f7-block-footer>
+    </f7-list>
+  </f7-page>
 </template>
 
 <script>

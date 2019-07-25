@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div>
     <img src="../assets/logo.png" width="130px">
     <h1>{{titulo}}</h1>
     <form id="app" @submit="Registrarse" method="get">
@@ -7,13 +7,55 @@
       <input type="email" name="email" placeholder="Correo Electronico" v-model.email="email"><br><br>
       <input type="password" name="password" placeholder="Password" v-model.password="password" maxlength="32"><br><br>
       <input type="password" name="password_confirmation" placeholder="Confirmar Password" v-model.password="password_confirmation" maxlength="32"><br><br>
-      <input type="submit" value="Registrarse">
+      <input type="submit" value="Registrarse"> -->
       <!-- <button type="button" @click="Registrarse">Registrarse</button><br><br> -->
-    </form><br>
+    <!-- </form><br>
     <small><router-link to="/">Login</router-link></small>
-    <h1>{{ error }}</h1>
+    <h1>{{ error }}</h1> -->
     <!-- <h1 v-for="data in json">{{ data }}</h1> -->
-  </div>
+  <!-- </div> -->
+  <f7-page name="Signup" no-toolbar no-navbar no-swipeback login-screen>
+    <f7-block>
+      <img src="../assets/logo.png" width="130px">
+    </f7-block>
+    <f7-login-screen-title>Registro de Usuario</f7-login-screen-title>
+    <f7-list form>
+      <f7-list-input
+        label="Nombre de Usuario"
+        type="text"
+        placeholder="Nombre de Usuario"
+        :value="username"
+        @input="username = $event.target.value"
+      ></f7-list-input>
+      <f7-list-input
+        label="Correo Electronico"
+        type="text"
+        placeholder="Correo Electronico"
+        :value="email"
+        @input="email = $event.target.value"
+      ></f7-list-input>
+      <f7-list-input
+        label="Contraseña"
+        type="password"
+        placeholder="Contraseña"
+        :value="password"
+        @input="password = $event.target.value"
+      ></f7-list-input>
+      <f7-list-input
+        label="Confirmar Contraseña"
+        type="password"
+        placeholder="Confirmar Contraseña"
+        :value="password_confirmation"
+        @input="password_confirmation = $event.target.value"
+      ></f7-list-input>
+    </f7-list>
+    <f7-block>
+      <f7-button @click="Registrarse" color="deeporange" raised fill round>Registrarse</f7-button>
+    </f7-block>
+    <f7-list>
+      <f7-block-footer>¿Ya tienes una cuenta?<br> <f7-link href="/">¡Ingresa!</f7-link>.</f7-block-footer>
+    </f7-list>
+  </f7-page>
 </template>
 
 <script>
@@ -21,9 +63,9 @@
 import api from '../api'
 
 export default {
-  name: "Signup",
   data () {
     return {
+      name: "Signup",
       titulo: 'Registro de Usuario',
       username: "",
       email: "",
