@@ -12,19 +12,24 @@ import chat from '@/components/chat'
 import auth from '../auth'
 
 // GUARDIANES AUTHENTICATION
-const requireAuth = (to, _from, next) => {
-  console.log(auth.user.authenticated);
-  if (!auth.user.authenticated) {
-    next({
-    path: '/Login/',
-    url: 'Login',
-    alias: '/Login/',
-      // query: { redirect: to.fullPath }
-    })
+const requireAuth = (routeTo, routeFrom, resolve, reject) => {
+    console.log(auth.user.authenticated);
+  if (true) {
+    resolve({url: '/Login/'});
   } else {
-    next()
+    // don't allow to visit this page for unauthenticated users
+    reject();
   }
 }
+
+// (to, _from, next) => {
+//   console.log(auth.user.authenticated);
+//   if (!auth.user.authenticated) {
+//     next('/Login')
+//   } else {
+//     next()
+//   }
+// }
 
 const afterAuth = (_to, from, next) => {
   if (auth.user.authenticated) {
@@ -45,7 +50,7 @@ export default [
       path: '/Login',
       name: 'Login',
       component: Login,
-      beforeEnter:afterAuth
+      beforeEnter: afterAuth
     },
     {
       path: '/signup',
@@ -61,7 +66,10 @@ export default [
       path: '/',
       name: 'paginaPrincipal',
       component: paginaPrincipal,
-      beforeEnter: requireAuth
+      beforeEnter: requireAuth,
+      // on: {
+      //   pageBeforeIn: requireAuth
+      // }
     },
     {
       path: '/chat',
