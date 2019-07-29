@@ -13,12 +13,10 @@ import auth from '../auth'
 
 // GUARDIANES AUTHENTICATION
 const requireAuth = (routeTo, routeFrom, resolve, reject) => {
-    console.log(auth.user.authenticated);
-  if (true) {
-    resolve({url: '/Login/'});
+  if (!auth.user.authenticated) {
+    resolve({ component: Login })
   } else {
-    // don't allow to visit this page for unauthenticated users
-    reject();
+    resolve({ component: paginaPrincipal })
   }
 }
 
@@ -41,39 +39,33 @@ const afterAuth = (_to, from, next) => {
 
 // Array routes
 export default [
-    {
-      path: '/Helloworld',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
-      path: '/Login',
-      name: 'Login',
-      component: Login,
-      beforeEnter: afterAuth
-    },
-    {
-      path: '/signup',
-      name: 'Signup',
-      component: Signup
-    },
-    {
-      path: '/registroExitoso',
-      name: 'registroExitoso',
-      component: registroExitoso
-    },
-    {
-      path: '/',
-      name: 'paginaPrincipal',
-      component: paginaPrincipal,
-      beforeEnter: requireAuth,
-      // on: {
-      //   pageBeforeIn: requireAuth
-      // }
-    },
-    {
-      path: '/chat',
-      name: 'chat',
-      component: chat
-    }
-  ]
+  {
+    path: '/Helloworld',
+    name: 'HelloWorld',
+    component: HelloWorld
+  },
+  {
+    path: '/Login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/signup',
+    name: 'Signup',
+    component: Signup
+  },
+  {
+    path: '/registroExitoso',
+    name: 'registroExitoso',
+    component: registroExitoso
+  },
+  {
+    path: '/',
+    async: requireAuth
+  },
+  {
+    path: '/chat',
+    name: 'chat',
+    component: chat
+  }
+]

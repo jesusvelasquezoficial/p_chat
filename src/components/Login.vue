@@ -86,11 +86,11 @@ export default {
               console.log(resp.data)
               console.log(Object.keys(resp))
 
-              window.localStorage.setItem('id_token', resp.data.user.id);
-              window.localStorage.setItem('v_username', resp.data.user.username);
-              window.localStorage.setItem('v_email', resp.data.user.email);
-              window.userToken = resp.data.user.token
-              localStorage.setItem('token',resp.data.user.token)
+              window.localStorage.setItem('id_token', resp.data.id);
+              window.localStorage.setItem('v_username', resp.data.username);
+              window.localStorage.setItem('v_email', resp.data.email);
+              // window.userToken = resp.data.user.token
+              // localStorage.setItem('token',resp.data.user.token)
               location.reload();
 
             }).catch((error) => {

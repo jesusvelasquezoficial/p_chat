@@ -1,7 +1,8 @@
 // API
 const PROTOCOLO = 'https://'
 const PORT = ":4001"
-const URL = '192.168.8.107'+PORT
+const URL = '10.0.1.7'+PORT
+// const URL = '192.168.8.107'+PORT
 const LOGIN_URL = PROTOCOLO+URL+"/api/login"
 
 export default {
@@ -17,6 +18,7 @@ export default {
   },
 
   signOut(context){
+
     window.localStorage.removeItem('id_token')
     window.localStorage.removeItem('v_username')
     window.localStorage.removeItem('v_email')
@@ -24,5 +26,6 @@ export default {
     // context.dispatch('USER_SIGNED_OUT')
     window.userToken = null
     context.router.navigate('/')
+    
   }
 }

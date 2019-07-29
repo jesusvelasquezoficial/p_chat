@@ -15,6 +15,7 @@
 
 <script>
 import routes from './router'
+import store from './store'
 
 export default {
   data() {
@@ -22,6 +23,7 @@ export default {
       // app params
       f7params: {
         routes,
+        store,
         name: 'App',
         id: 'App'
         // specify routes for app

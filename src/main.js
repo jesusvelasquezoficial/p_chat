@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import Vuex from 'vuex'
 import App from './App'
 
 // Axios 
@@ -24,6 +25,7 @@ import Framework7CSS from 'framework7/css/framework7.bundle.min.css'
 Framework7.use(Framework7Vue)
 
 Vue.use(VueAxios, Axios)
+Vue.use(Vuex)
 
 Vue.config.productionTip = false
 
