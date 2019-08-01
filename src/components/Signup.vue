@@ -14,7 +14,7 @@
     <h1>{{ error }}</h1> -->
     <!-- <h1 v-for="data in json">{{ data }}</h1> -->
   <!-- </div> -->
-  <f7-page name="Signup" no-toolbar no-navbar no-swipeback login-screen>
+  <f7-page no-toolbar no-navbar no-swipeback login-screen>
     <f7-block>
       <img src="../assets/logo.png" width="130px">
     </f7-block>
@@ -24,8 +24,8 @@
         label="Nombre de Usuario"
         type="text"
         placeholder="Nombre de Usuario"
-        :value="username"
-        @input="username = $event.target.value"
+        :value="formSignin.username"
+        @input="formSignin.username = $event.target.value"
         outline
         floating-label
         info=""
@@ -37,8 +37,8 @@
         label="Correo Electronico"
         type="text"
         placeholder="Correo Electronico"
-        :value="email"
-        @input="email = $event.target.value"
+        :value="formSignin.email"
+        @input="formSignin.email = $event.target.value"
         outline
         floating-label
         info=""
@@ -50,8 +50,8 @@
         label="Contraseña"
         type="password"
         placeholder="Contraseña"
-        :value="password"
-        @input="password = $event.target.value"
+        :value="formSignin.password"
+        @input="formSignin.password = $event.target.value"
         outline
         floating-label
         info=""
@@ -63,8 +63,8 @@
         label="Confirmar Contraseña"
         type="password"
         placeholder="Confirmar Contraseña"
-        :value="password_confirmation"
-        @input="password_confirmation = $event.target.value"
+        :value="formSignin.password_confirmation"
+        @input="formSignin.password_confirmation = $event.target.value"
         outline
         floating-label
         info=""
@@ -85,17 +85,19 @@
 
 <script>
 // OJO CON ESTO, DEBERIAS CAMBIAR EL NOMBRE
-import api from '../api'
+import auth from '../auth'
 
 export default {
+  name: "Signup",
   data () {
     return {
-      name: "Signup",
       titulo: 'Registro de Usuario',
-      username: "",
-      email: "",
-      password: "",
-      password_confirmation: "",
+      formSignin: {
+        username: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+      },
       json: [],
       error: ""
     }
@@ -105,6 +107,8 @@ export default {
       // LOGICA PARA REGISTRAR UN USUARIO
       e.preventDefault();
       const self = this
+      const app = self.$f7
+      const router = self.$f7router
 
       if (this.validarCampos()) {
         self.error = ""
@@ -114,20 +118,31 @@ export default {
             self.error = ""
             if (this.validateConfirmationPassword()) {
               self.error = ""
-              api.setDataUser(self.username, self.email, self.password)
-              .then(function(data) {
-                // console.log(data)
-                // console.log(Object.keys(data))
-                if(Object.keys(data) != "errors"){
-                  self.json = data
-                  self.$router.push('/registroExitoso')
-                }else{
-                  self.error = "El email esta en uso, prueba con otro email"
-                }
-                // this.$router.push('/')
-              }).catch(e => {
-                console.log(e);
+              auth.signin(this, this.formSignin).then((resp) => {
+                console.log(resp.status)
+                console.log(resp.data)
+                console.log(Object.keys(resp))
+                router.navigate('/registroExitoso')
+                console.log('DEBIO IR A REGISTRO_EXITOSO')
+              }).catch((error) => {
+                app.dialog.alert("OCURRIO UN ERROR, ENTRO POR CATCH");
+                self.error = "OCURRIO UN ERROR"
+                console.log(Object.keys(error))
+                console.log(error)
               })
+              // .then(function(data) {
+              //   // console.log(data)
+              //   // console.log(Object.keys(data))
+              //   if(Object.keys(data) != "errors"){
+              //     self.json = data
+              //     self.$router.push('/registroExitoso')
+              //   }else{
+              //     self.error = "El email esta en uso, prueba con otro email"
+              //   }
+              //   // this.$router.push('/')
+              // }).catch(e => {
+              //   console.log(e);
+              // })
             }else{
               console.log("El password no coincide")
               self.error = "El password no coincide"
@@ -151,17 +166,17 @@ export default {
       }
     },
     validarCampos: function() {
-      return (this.username != "" && this.email != "" && this.password != "" && this.password_confirmation != "") ? true : false
+      return (this.formSignin.username != "" && this.formSignin.email != "" && this.formSignin.password != "" && this.formSignin.password_confirmation != "") ? true : false
     },
     validarEmail: function() {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      return re.test(this.email)
+      return re.test(this.formSignin.email)
     },
     validateMinLength(){
-      return this.password.trim().length > 7 ? true : false
+      return this.formSignin.password.trim().length > 7 ? true : false
     },
     validateConfirmationPassword(){
-      return (this.password == this.password_confirmation) ? true : false
+      return (this.formSignin.password == this.formSignin.password_confirmation) ? true : false
     }
 
   }

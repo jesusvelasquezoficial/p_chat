@@ -81,7 +81,7 @@ export default {
         if (this.validarEmail()) {
             console.log(this.validarEmail());
             self.error = ""
-            auth.login(this, self.formLogin).then((resp) =>{
+            auth.login(this, self.formLogin).then((resp) => {
               console.log(resp.status)
               console.log(resp.data)
               console.log(Object.keys(resp))

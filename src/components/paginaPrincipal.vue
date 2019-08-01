@@ -1,76 +1,43 @@
 <template>
   <div>
-    <div heigth="100px" class="nav">
-      <table width="100%">
-        <tr>
-          <td style="text-align:left">
-            <img src="../assets/logo-phoenix.png" width="130px">
-          </td>
-          <td  style="text-align:right;">
-            <!-- CAMPO DE NOMBRE DE CONTACTO A BUSCAR -->
-            <input type="text" name="" v-model="nombreContato" placeholder="Nombre de Contacto" width="auto">
-            <a @click="buscarContacto" class="menu" style="border: solid 1px white;">Buscar</a>
-            <!-- <a href="#" class="menu">{{username}}</a> -->
-          </td>
-        </tr>
-      </table>
-    </div><br>
-    <!-- <h1>{{titulo}}</h1><br> -->
-    <div class="conversacion">
-      <table style="width:100%;text-align:left;">
-        <tr style="margin:20px" v-show="contacto.mostrar">
-          <td>
-            <img src="../assets/profiles/avatar-1.jpg" width="50px" class="img">
-          </td>
-          <a href="#" class="btnConversacion">
-          <td>
-            <i><b>{{contacto.nombre}}</b></i> <br>
-            <small>{{contacto.email}}</small>
-          </td>
-          <td style="vertical-align:middle; margin-top:5px;float:right;">
-            <!-- <router-link to="/chat" style="border: solid 1px black;text-decoration:none;padding:7px;color:black;">Chatear</router-link> -->
-          </td>
-        </a>
-        <hr>
-        </tr>
-        <tr style="margin:20px">
-          <td>
-            <img src="../assets/profiles/avatar-1.jpg" width="50px" class="img">
-          </td>
-          <a href="#" class="btnConversacion">
-          <td>
-              <i><b>Jairo Moncada</b></i> <br>
-              <small> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. •</small>
-          </td>
-        </a>
-        <hr>
-        </tr>
-        <tr>
-          <td >
-            <img src="../assets/profiles/avatar-2.jpg" width="50px" class="img">
-          </td>
-          <a href="#" class="btnConversacion">
-          <td>
-            <i><b>Fernando Agreda</b></i> <br>
-            <small> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. •</small>
-          </td>
-        </a>
-        <hr>
-        </tr>
-        <tr>
-          <td>
-            <img src="../assets/profiles/avatar-6.jpg" width="50px" class="img">
-          </td>
-          <a href="#" class="btnConversacion">
-          <td>
-              <i><b>Jesus Velasquez</b></i> <br>
-              <small> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. •</small>
-          </td>
-        </a>
-          <hr>
-        </tr>
-      </table>
-    </div>
+    <f7-page>
+      <f7-navbar title="Chats">
+        <f7-nav-right>
+          <f7-link class="searchbar-enable" data-searchbar=".searchbar-demo" icon-ios="f7:search" icon-aurora="f7:search" icon-md="f7:search"></f7-link>
+          <f7-link  href="/buscarContactos/" icon-f7="person"></f7-link>
+        </f7-nav-right>
+        <f7-searchbar
+          class="searchbar-demo"
+          expandable
+          search-container=".search-list"
+          search-in=".item-title"
+        ></f7-searchbar>
+      </f7-navbar>
+      <f7-list class="searchbar-not-found" media-list>
+        <f7-list-item title="No existe"></f7-list-item>
+      </f7-list>
+      <f7-list class="search-list searchbar-found no-margin-top text-align-left">
+        <f7-list-item link="/chat" title="Jesus Velasquez" footer="esto es un mensaje de prueba." badge="5">
+          <f7-icon slot="media" f7="images"></f7-icon>
+        </f7-list-item>
+        <f7-list-item link="/chat" title="Fernando Agreda" footer="esto es un mensaje de prueba." badge="5">
+          <f7-icon slot="media" f7="images"></f7-icon>
+        </f7-list-item>
+        <f7-list-item link="/chat" title="Jairo Moncada" footer="esto es un mensaje de prueba." badge="5">
+          <f7-icon slot="media" f7="images"></f7-icon>
+        </f7-list-item>
+      </f7-list>
+      <f7-list>
+        <f7-link @click="Salir" fill text-color="red" class="item-divider">Cerrar Sesión</f7-link>
+      </f7-list>
+      <!-- <f7-list class="text-align-center">
+        <f7-list-item title="Salir" text-color="red"></f7-list-item>
+      </f7-list> -->
+      <!-- <f7-fab position="right-bottom" slot="fixed" color="orange" href="/chat/">
+        <f7-icon ios="f7:add" aurora="f7:add" md="f7:add"></f7-icon> -->
+        <!-- <f7-icon ios="f7:close" aurora="f7:close" md="f7:close"></f7-icon> -->
+      <!-- </f7-fab> -->
+    </f7-page>
     <!-- <small> <router-link to="/">Cerrar Session</router-link></small> -->
     <div class="">
       <h1>{{ error }}</h1>
@@ -81,6 +48,7 @@
 
 <script>
 import api from '../api'
+import auth from '../auth'
 export default {
   name: "paginaPrincipal",
   data () {
@@ -121,6 +89,10 @@ export default {
         // self.error = errors
 
       })
+    },
+    Salir: () => {
+      auth.signOut(this)
+      location.reload()
     }
   }
 

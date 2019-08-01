@@ -8,6 +8,7 @@ import paginaPrincipal from '@/components/paginaPrincipal'
 import Signup from '@/components/Signup'
 import registroExitoso from '@/components/registroExitoso'
 import chat from '@/components/chat'
+import buscarContactos from '@/components/buscarContactos'
 
 import auth from '../auth'
 
@@ -61,11 +62,18 @@ export default [
   },
   {
     path: '/',
+    name: 'paginaPrincipal',
     async: requireAuth
   },
   {
     path: '/chat',
     name: 'chat',
     component: chat
+  },
+  {
+    path: '/buscarContactos',
+    name: 'buscarContactos',
+    component: buscarContactos
   }
+  
 ]
