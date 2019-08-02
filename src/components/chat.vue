@@ -1,5 +1,6 @@
 <template>
   <f7-page>
+    <!-- Barra de navegacion -->
     <!-- <f7-navbar title="Messsages" back-link="Back"></f7-navbar> -->
     <f7-navbar>
       <f7-nav-left sliding>

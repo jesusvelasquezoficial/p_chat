@@ -1,14 +1,14 @@
 <template>
   <f7-page no-toolbar no-navbar no-swipeback login-screen>
-    <!-- IMAGEN PHOENIX -->
+    <!-- Logo de Phoenix  -->
     <f7-block>
       <img src="../assets/logo.png" width="130px">
     </f7-block>
-    <!-- TITULO LOGIN -->
+    <!-- Titulo -->
     <f7-login-screen-title>{{ titulo }}</f7-login-screen-title>
-    <!-- FORMULARIO -->
+    <!-- Formulario -->
     <f7-list form>
-      <!-- INPUT EMAIL -->
+      <!-- Email -->
       <f7-list-input
         label="Correo Electronico"
         type="email"
@@ -24,7 +24,7 @@
         autocomplete="new-user"
         clear-button
       ></f7-list-input>
-      <!-- INPUT PASSWORD -->
+      <!-- Password -->
       <f7-list-input
         label="Contraseña"
         type="password"
@@ -39,13 +39,13 @@
         clear-button
       ></f7-list-input>
     </f7-list>
-    <!-- BTN INGRESAR -->
+    <!-- Boton Ingresar -->
     <f7-block>
       <f7-button @click="Ingresar" color="deeporange" raised fill round>Ingresar</f7-button>
     </f7-block>
-    <!-- MSJ ERRORES -->
+    <!-- Mensajes de Error -->
     <f7-block-title>{{ error }}</f7-block-title>
-    <!-- LINK REGISTRARSE -->
+    <!-- Links a Registro de Usuarios -->
     <f7-list>
       <f7-block-footer>¿Aun no tienes cuenta?<br> <f7-link href="/signup/">¡Registrate!</f7-link>.</f7-block-footer>
     </f7-list>
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-// AUTENTICACION
+// Funciones de autenticacion
 import auth from '../auth'
 
 export default {

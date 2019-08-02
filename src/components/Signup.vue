@@ -1,25 +1,14 @@
 <template>
-  <!-- <div>
-    <img src="../assets/logo.png" width="130px">
-    <h1>{{titulo}}</h1>
-    <form id="app" @submit="Registrarse" method="get">
-      <input type="text" name="username" placeholder="Nombre de Usuario" v-model.text="username"><br><br>
-      <input type="email" name="email" placeholder="Correo Electronico" v-model.email="email"><br><br>
-      <input type="password" name="password" placeholder="Password" v-model.password="password" maxlength="32"><br><br>
-      <input type="password" name="password_confirmation" placeholder="Confirmar Password" v-model.password="password_confirmation" maxlength="32"><br><br>
-      <input type="submit" value="Registrarse"> -->
-      <!-- <button type="button" @click="Registrarse">Registrarse</button><br><br> -->
-    <!-- </form><br>
-    <small><router-link to="/">Login</router-link></small>
-    <h1>{{ error }}</h1> -->
-    <!-- <h1 v-for="data in json">{{ data }}</h1> -->
-  <!-- </div> -->
   <f7-page no-toolbar no-navbar no-swipeback login-screen>
+    <!-- Logo de Phoenix  -->
     <f7-block>
       <img src="../assets/logo.png" width="130px">
     </f7-block>
+    <!-- Titulo -->
     <f7-login-screen-title>{{ titulo }}</f7-login-screen-title>
+    <!-- Formulario -->
     <f7-list form>
+      <!-- Username -->
       <f7-list-input
         label="Nombre de Usuario"
         type="text"
@@ -33,6 +22,7 @@
         validate
         clear-button
       ></f7-list-input>
+      <!-- Email -->
       <f7-list-input
         label="Correo Electronico"
         type="text"
@@ -46,6 +36,7 @@
         validate
         clear-button
       ></f7-list-input>
+      <!-- Password -->
       <f7-list-input
         label="Contraseña"
         type="password"
@@ -59,6 +50,7 @@
         validate
         clear-button
       ></f7-list-input>
+      <!-- Confirmar Password -->
       <f7-list-input
         label="Confirmar Contraseña"
         type="password"
@@ -73,10 +65,13 @@
         clear-button
       ></f7-list-input>
     </f7-list>
+    <!-- Boton Registrarse -->
     <f7-block>
       <f7-button @click="Registrarse" color="deeporange" raised fill round>Registrarse</f7-button>
     </f7-block>
+    <!-- Mensajes de Error -->
     <f7-block-title>{{ error }}</f7-block-title>
+    <!-- Links a Inicio de Sesion -->
     <f7-list>
       <f7-block-footer>¿Ya tienes una cuenta?<br> <f7-link href="/">¡Ingresa!</f7-link>.</f7-block-footer>
     </f7-list>
@@ -84,7 +79,7 @@
 </template>
 
 <script>
-// OJO CON ESTO, DEBERIAS CAMBIAR EL NOMBRE
+// OJO CON ESTO, DEBES CAMBIAR EL NOMBRE
 import auth from '../auth'
 
 export default {
