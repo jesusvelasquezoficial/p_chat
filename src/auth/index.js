@@ -1,4 +1,3 @@
-// API
 // const { SCHEME, HOSTNAME } =
 //   process.env.NODE_ENV == 'production'
 //     ? { SCHEME: 'http', HOSTNAME: window.location.hostname+":4000" }
@@ -11,29 +10,28 @@ const LOGIN_URL = PROTOCOLO+URL+"/api/login"
 const SIGNIN_URL = PROTOCOLO+URL+"/api/signin"
 
 export default {
+  // Datos de usuario local
   user:{
     id: Number.parseInt(window.localStorage.getItem('id_token')),
     name: window.localStorage.getItem('v_username'),
     email: window.localStorage.getItem('v_email'),
     authenticated: !!window.localStorage.getItem('id_token')
   },
-
+  // Iniciar Sesion
   login (context, creds, redirect) {
     return context.axios.post(LOGIN_URL, creds)
   },
-
+  // Registrar Usuario
   signin(context, creds, redirect){
     return context.axios.post(SIGNIN_URL, creds)
   },
-
+  // Cerrar Sesion
   signOut(context){
     window.localStorage.removeItem('id_token')
     window.localStorage.removeItem('v_username')
     window.localStorage.removeItem('v_email')
     window.localStorage.removeItem('token')
-    // context.dispatch('USER_SIGNED_OUT')
     window.userToken = null
     location.reload()
-    // context.router.navigate('/')
   }
 }

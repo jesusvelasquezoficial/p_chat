@@ -1,7 +1,12 @@
 <template>
   <f7-page>
-    <f7-navbar title="Messsages" back-link></f7-navbar>
-
+    <!-- <f7-navbar title="Messsages" back-link="Back"></f7-navbar> -->
+    <f7-navbar>
+      <f7-nav-left sliding>
+        <f7-link @click="$f7router.navigate('/')" icon-md="f7:arrow_left"></f7-link>
+      </f7-nav-left>
+      <f7-nav-title>Messsages</f7-nav-title>
+    </f7-navbar>
     <f7-messagebar
       :placeholder="placeholder"
       ref="messagebar"

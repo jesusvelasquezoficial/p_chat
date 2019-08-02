@@ -1,7 +1,4 @@
-// import Vue from 'vue'
-// import Router from 'vue-router'
-
-// COMPONENTES PERSONALES
+// Componentes Personales
 import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login'
 import paginaPrincipal from '@/components/paginaPrincipal'
@@ -10,9 +7,10 @@ import registroExitoso from '@/components/registroExitoso'
 import chat from '@/components/chat'
 import buscarContactos from '@/components/buscarContactos'
 
+// Autenticacion
 import auth from '../auth'
 
-// GUARDIANES AUTHENTICATION
+// Guardianes de Autenticacion
 const requireAuth = (routeTo, routeFrom, resolve, reject) => {
   if (!auth.user.authenticated) {
     resolve({ component: Login })
@@ -21,24 +19,7 @@ const requireAuth = (routeTo, routeFrom, resolve, reject) => {
   }
 }
 
-// (to, _from, next) => {
-//   console.log(auth.user.authenticated);
-//   if (!auth.user.authenticated) {
-//     next('/Login')
-//   } else {
-//     next()
-//   }
-// }
-
-const afterAuth = (_to, from, next) => {
-  if (auth.user.authenticated) {
-    next(from.path)
-  } else {
-    next()
-  }
-}
-
-// Array routes
+// Array Rutas
 export default [
   {
     path: '/Helloworld',

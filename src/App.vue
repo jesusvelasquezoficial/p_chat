@@ -1,32 +1,31 @@
 <template>
-  <!-- <div id="app">
-    <router-view/>
-  </div> -->
-  <!-- App Root Element -->
-    <div id="app">
-      <!-- Main Framework7 App component where we pass Framework7 params -->
-        <f7-app :params="f7params">
-          <f7-statusbar></f7-statusbar>
-          <!-- initial page is specified in routes.js -->
-          <f7-view main url="/"></f7-view>
-        </f7-app>
-    </div>
+  <!-- Elemento ruta de App -->
+  <div id="app">
+    <!-- Principal componente de Frmk7 App con parametros -->
+    <f7-app :params="f7params">
+      <!-- Barra de Estado en Mobile -->
+      <f7-statusbar></f7-statusbar>
+      <!-- Vista principal -->
+      <f7-view main url="/"></f7-view>
+    </f7-app>
+  </div>
 </template>
 
 <script>
+// Rutas de Componentes
 import routes from './router'
+// Tienda de datos locales 
 import store from './store'
 
 export default {
   data() {
     return {
-      // app params
+      // Parametros de App
       f7params: {
         routes,
         store,
         name: 'App',
         id: 'App'
-        // specify routes for app
       }
     }
   }
@@ -38,7 +37,7 @@ export default {
   margin: 0px;
   padding: 0px;
 }
-#app {
+#app{
   font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

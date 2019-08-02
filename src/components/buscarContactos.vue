@@ -1,7 +1,11 @@
 <template>
   <div>
     <f7-page>
-      <f7-navbar title="Todos los contactos" back-link>
+      <f7-navbar>
+        <f7-nav-left sliding>
+          <f7-link @click="$f7router.navigate('/')" icon-md="f7:arrow_left"></f7-link>
+        </f7-nav-left>
+        <f7-nav-title>Todos los Contactos</f7-nav-title>
         <f7-nav-right>
           <f7-link class="searchbar-enable" data-searchbar=".searchbar-demo" icon-ios="f7:search_strong" icon-f7="search" ></f7-link>
         </f7-nav-right>
@@ -11,7 +15,10 @@
         <f7-list-item title="Nothing found"></f7-list-item>
       </f7-list>
       <f7-list class="search-list searchbar-found">
-        <f7-list-item v-for="contacto in contactos" :title="contacto.username" :id="contacto.id"> {{contacto.email}}</f7-list-item>
+        <f7-list-item v-for="contacto in contactos" :title="contacto.username" :key="contacto.id"> 
+          <f7-link icon-f7="add_round" color="blue"></f7-link>
+          <!-- <f7-link icon-f7="delete_round_fill" color="blue"></f7-link> -->
+        </f7-list-item>
       </f7-list>
     </f7-page>
   </div>
@@ -29,6 +36,9 @@ export default {
         {id: 6, username: "Vitto Agreda", email: "vitto@gmail.com"},
       ]
     };
+  },
+  mounted() {
+  this.contactos.push(arguments) 
   }
 };
 </script>
