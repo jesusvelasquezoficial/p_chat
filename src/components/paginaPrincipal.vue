@@ -1,4 +1,4 @@
-<template>
+<template id="paginaPrincipal">
   <div>
     <f7-page>
       <!-- Barra de navegacion -->
@@ -29,6 +29,7 @@
         <f7-list-item link="/chat/" title="Jairo Moncada" footer="esto es un mensaje de prueba." badge="8">
           <f7-icon slot="media" f7="images"></f7-icon>
         </f7-list-item>
+        <f7-list-item link="/buscarContactos/" title="Todos los Contactos"></f7-list-item>
       </f7-list>
       <!-- Cerrar Sesion -->
       <f7-list>
@@ -50,6 +51,7 @@ import api from '../api'
 import auth from '../auth'
 
 export default {
+  id: "paginaPrincipal",
   name: "paginaPrincipal",
   data () {
     return {

@@ -1,10 +1,7 @@
-// const { SCHEME, HOSTNAME } =
-//   process.env.NODE_ENV == 'production'
-//     ? { SCHEME: 'http', HOSTNAME: window.location.hostname+":4000" }
-//     : { SCHEME: 'http', HOSTNAME: 'localhost:4000' }
 const PROTOCOLO = 'https://'
 const PORT = ":4001"
-const URL = '10.0.1.7'+PORT
+const HOST = window.location.hostname == '10.0.1.7' ? "10.0.1.7" :'localhost'
+const URL = HOST+PORT
 // const URL = '192.168.8.107'+PORT
 const LOGIN_URL = PROTOCOLO+URL+"/api/login"
 const SIGNIN_URL = PROTOCOLO+URL+"/api/signin"

@@ -1,4 +1,4 @@
-<template>
+<template id="login">
   <f7-page no-toolbar no-navbar no-swipeback login-screen>
     <!-- Logo de Phoenix  -->
     <f7-block>
@@ -57,8 +57,8 @@
 import auth from '../auth'
 
 export default {
+  name: "Login",
   data () {
-    name: "Login"
     return {
       titulo: 'Inicio de Sesión',
       formLogin: {
@@ -94,8 +94,14 @@ export default {
               location.reload();
 
             }).catch((error) => {
+              // network error
+              console.log(error.config);
+              console.log(error.request);
+              console.log(error.response);
+              console.log(error.isAxiosError);
+              console.log(error.toJSON);
               // app.dialog.alert(err);
-              app.dialog.alert("Usted no esta registrador");
+              app.dialog.alert("Usted no esta registrador")
               self.error = "Usted no esta registrador"
               console.log(Object.keys(error))
               console.log(error)
