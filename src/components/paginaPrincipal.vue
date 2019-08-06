@@ -30,6 +30,7 @@
           <f7-icon slot="media" f7="images"></f7-icon>
         </f7-list-item>
         <f7-list-item link="/buscarContactos/" title="Todos los Contactos"></f7-list-item>
+        <f7-list-item link="/registroExitoso/" title="registroExitoso"></f7-list-item>
       </f7-list>
       <!-- Cerrar Sesion -->
       <f7-list>
@@ -37,10 +38,10 @@
       </f7-list>
     </f7-page>
     <!-- Mensajes de objetos JSON -->
-    <div class="">
+    <!-- <div class="">
       <h1>{{ error }}</h1>
       <h1 v-for="msj in json">{{ msj }}</h1>
-    </div>
+    </div> -->
   </div>
 </template>
 

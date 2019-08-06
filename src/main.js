@@ -22,6 +22,7 @@ import Framework7Vue from 'framework7-vue/framework7-vue.bundle.min.js'
 import Framework7CSS from 'framework7/css/framework7.bundle.min.css'
 
 // Import F7 iOS Icons
+// import Framework7Icons from 'framework7-icons/css/framework7-icons.css'
 import Framework7Icons from 'framework7-icons/css/framework7-icons.css'
 
 // Usamos los recursos necesarios 
