@@ -26,7 +26,9 @@ import Framework7CSS from 'framework7/css/framework7.bundle.min.css'
 import Framework7Icons from 'framework7-icons/css/framework7-icons.css'
 
 // Usamos los recursos necesarios 
-Framework7.use(Framework7Vue, Framework7CSS, Framework7Icons)
+Framework7.use(Framework7Vue)
+Framework7.use(Framework7CSS)
+Framework7.use(Framework7Icons)
 Vue.use(VueAxios, Axios)
 Vue.use(Vuex)
 

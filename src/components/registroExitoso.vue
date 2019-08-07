@@ -12,10 +12,13 @@
       <!-- bloque de contenido -->
       <f7-block>
         <h3>{{ bienvenida }}</h3>
+        <br>
       </f7-block>
       <f7-block>
         <!-- Default back icon -->
-        <f7-icon icon="icon-back"></f7-icon>
+        <f7-link href="/" color="black">¡Ingresa!
+          <f7-icon icon="icon-back"></f7-icon>
+        </f7-link>
 
         <!-- Some custom icon -->
         <f7-icon icon="icon-home"></f7-icon>
@@ -60,6 +63,9 @@ export default {
       // json: [],
       // error: ""
     }
+  },
+  mounted() {
+    
   }
 }
 </script>

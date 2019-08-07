@@ -76,31 +76,37 @@ export default {
       console.log(self.formLogin.email)
       console.log(self.formLogin.password)
       if (this.validarCampos()) {
-        console.log(this.validarCampos());
+        console.log(this.validarCampos())
         self.error = ""
         if (this.validarEmail()) {
-            console.log(this.validarEmail());
+            console.log(this.validarEmail())
             self.error = ""
-            auth.login(this, self.formLogin).then((resp) => {
-              console.log(resp.status)
-              console.log(resp.data)
-              console.log(Object.keys(resp))
+            auth.login(this, self.formLogin)
+            .then((resp) => {
+              if (Object.keys(resp.data) != "errors"){
+                console.log(resp.status)
+                console.log(resp.data)
+                console.log(Object.keys(resp))
 
-              window.localStorage.setItem('id_token', resp.data.id);
-              window.localStorage.setItem('v_username', resp.data.username);
-              window.localStorage.setItem('v_email', resp.data.email);
-              // window.userToken = resp.data.user.token
-              // localStorage.setItem('token',resp.data.user.token)
-              location.reload();
-
+                window.localStorage.setItem('id_token', resp.data.id)
+                window.localStorage.setItem('v_username', resp.data.username)
+                window.localStorage.setItem('v_email', resp.data.email)
+                // window.userToken = resp.data.user.token
+                // localStorage.setItem('token',resp.data.user.token)
+                location.reload()
+              }else{
+                console.log(resp.data.errors)
+                self.error = resp.data.errors
+              }
+              
             }).catch((error) => {
               // network error
-              console.log(error.config);
-              console.log(error.request);
-              console.log(error.response);
-              console.log(error.isAxiosError);
-              console.log(error.toJSON);
-              // app.dialog.alert(err);
+              console.log(error.config)
+              console.log(error.request)
+              console.log(error.response)
+              console.log(error.isAxiosError)
+              console.log(error.toJSON)
+              // app.dialog.alert(err)
               app.dialog.alert("Usted no esta registrador")
               self.error = "Usted no esta registrador"
               console.log(Object.keys(error))
@@ -108,7 +114,7 @@ export default {
             })
             // api.getDataSesion(self.formLogin.email, self.formLogin.password)
             // .then(function(data) {
-            //   console.log(data);
+            //   console.log(data)
             //   console.log(Object.keys(data))
             //   if(Object.keys(data) != "errors"){
             //     // Devolvemos los datos OJO
@@ -121,7 +127,7 @@ export default {
             // }).catch(errors => {
             //   self.error = "Usted no esta registrador"
             //   self.error = errors
-            //   console.log("Usted no esta registrador");
+            //   console.log("Usted no esta registrador")
             //   console.log(errors)
             //   console.log(Object.keys(errors))
             // })
@@ -136,7 +142,7 @@ export default {
       return (this.formLogin.email != "" && this.formLogin.password != "") ? true : false
     },
     validarEmail: function() {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      var re = /^(([^<>()\[\]\\.,:\s@"]+(\.[^<>()\[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       return re.test(this.formLogin.email)
     }
   }

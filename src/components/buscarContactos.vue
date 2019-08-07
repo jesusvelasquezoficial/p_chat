@@ -21,7 +21,7 @@
       <f7-list class="search-list searchbar-found">
         <f7-list-item v-for="contacto in contactos" :title="contacto.username" :key="contacto.id" > 
           <!-- Boton añadir contacto -->
-          <f7-link icon-f7="add_round" color="blue"></f7-link>
+          <f7-link icon-f7="add_round" color="blue" @click="agregarContacto(contacto.id)"></f7-link>
           <!-- Boton eliminar contacto -->
           <!-- <f7-link icon-f7="delete_round_fill" color="red"></f7-link> -->
         </f7-list-item>
@@ -30,6 +30,7 @@
   </div>
 </template>
 <script>
+import auth from '../auth'
 export default {
   id: "buscarContactos",
   name: "buscarContactos",
@@ -44,6 +45,14 @@ export default {
         {id: 6, username: "Vitto Agreda", email: "vitto@gmail.com"},
       ]
     };
+  },
+  methods: {
+    agregarContacto: (id) =>{
+      console.log(this.$store);
+      
+      var id_user_from = auth.user.id
+      console.log(id_user_from, id);
+    }
   },
   mounted() {
     // Listar contactos del servidor

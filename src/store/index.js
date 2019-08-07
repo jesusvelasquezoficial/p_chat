@@ -20,8 +20,13 @@ Vue.use(Vuex)
 // })
 
 const store = new Vuex.Store({
-
   state: {
+    user:{
+      id: Number.parseInt(window.localStorage.getItem('id_token')),
+      name: window.localStorage.getItem('v_username'),
+      email: window.localStorage.getItem('v_email'),
+      authenticated: !!window.localStorage.getItem('id_token')
+    },
     currentUser: null,
     count: 0
 
